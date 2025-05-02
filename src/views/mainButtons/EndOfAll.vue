@@ -121,7 +121,9 @@ const restartGame = () => {
 .player-row {
   display: flex;
   justify-content: space-between;
+  /* 子元素水平分布 */
   align-items: center;
+  /* 子元素垂直居中 */
   width: 90%;
   margin: 10px 0;
   font-size: 1.8em;
@@ -130,6 +132,34 @@ const restartGame = () => {
   color: #fff;
   font-weight: bold;
   text-align: center;
+}
+
+.player-rank {
+  flex: 0 0 10%;
+  /* 固定宽度为 10% */
+  text-align: center;
+  /* 内容居中 */
+}
+
+.player-name {
+  flex: 0 0 40%;
+  /* 固定宽度为 40% */
+  text-align: left;
+  /* 左对齐 */
+}
+
+.player-score {
+  flex: 0 0 20%;
+  /* 固定宽度为 20% */
+  text-align: right;
+  /* 右对齐 */
+}
+
+.player-pt {
+  flex: 0 0 20%;
+  /* 固定宽度为 20% */
+  text-align: right;
+  /* 右对齐 */
 }
 
 /* 金色金属质感 */
