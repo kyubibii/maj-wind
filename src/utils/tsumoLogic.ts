@@ -103,6 +103,16 @@ function dealerTsumo(fan: number, fu?: number) {
     point = 12000
   } else if (fan === 8) {
     point = 16000
+  } else if (fan === 9) {
+    point = 32000
+  } else if (fan === 10) {
+    point = 48000
+  } else if (fan === 11) {
+    point = 64000
+  } else if (fan === 12) {
+    point = 96000
+  } else if (fan === 13) {
+    point = 128000
   }
   return point
 } // 输出庄家自摸点数
@@ -212,6 +222,16 @@ function nonDealerTsumo(fan: number, fu?: number) {
     point = [6000, 12000]
   } else if (fan === 8) {
     point = [8000, 16000]
+  } else if (fan === 9) {
+    point = [16000, 32000]
+  } else if (fan === 10) {
+    point = [24000, 48000]
+  } else if (fan === 11) {
+    point = [32000, 64000]
+  } else if (fan === 12) {
+    point = [48000, 96000]
+  } else if (fan === 13) {
+    point = [64000, 128000]
   }
   return point
 } // 输出自家自摸点数

@@ -52,6 +52,16 @@ function dealerRonn(fan: number, fu?: number) {
     point = 36000
   } else if (fan === 8) {
     point = 48000
+  } else if (fan === 9) {
+    point = 96000
+  } else if (fan === 10) {
+    point = 144000
+  } else if (fan === 11) {
+    point = 192000
+  } else if (fan === 12) {
+    point = 288000
+  } else if (fan === 13) {
+    point = 384000
   }
   return point
 }
@@ -110,6 +120,16 @@ function nonDealerRonn(fan: number, fu?: number) {
     point = 24000
   } else if (fan === 8) {
     point = 32000
+  } else if (fan === 9) {
+    point = 64000
+  } else if (fan === 10) {
+    point = 96000
+  } else if (fan === 11) {
+    point = 128000
+  } else if (fan === 12) {
+    point = 192000
+  } else if (fan === 13) {
+    point = 256000
   }
   return point
 }
