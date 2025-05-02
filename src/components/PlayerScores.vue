@@ -108,7 +108,7 @@ const rollDice = () => {
   // 延迟 1000ms 执行 rollDice
   setTimeout(() => {
     playStore.rollDice()
-  }, 1000)
+  }, 200)
 }
 
 // 更新玩家名字
