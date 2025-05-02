@@ -27,14 +27,15 @@
               </button>
               <!-- 番选择 -->
               <select class="ronn-select" v-model="ronnSelectedFan[index]" @change="onRonnFanChange(index)"
-                :disabled="!activeRonnButtons.includes(index)">
+                :disabled="!activeRonnButtons.includes(index)"
+                :style="{ width: ronnSelectedFan[index] > 3 ? '9em' : '4.5em' }">
                 <option v-for="(label, value) in tsumoFanOptions" :key="value" :value="value">
                   {{ label }}
                 </option>
               </select>
               <!-- 符选择 -->
               <select class="ronn-select" v-model="ronnSelectedFu[index]" @change="onRonnFuChange(index)"
-                :disabled="!activeRonnButtons.includes(index) || ronnSelectedFan[index] > 3">
+                v-show="ronnSelectedFan[index] <= 3" :disabled="!activeRonnButtons.includes(index)">
                 <option v-for="(label, value) in ronnFilteredFuOptions[index]" :key="value" :value="value">
                   {{ label }}
                 </option>
