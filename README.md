@@ -38,3 +38,4 @@ npm run build
 npm run lint
 ```
 # mauj-wind
+# maj-wind
