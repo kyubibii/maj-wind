@@ -1,5 +1,7 @@
 # maj-wind
 
+这是一个立直麻将面麻记分助手，使用网址：https://maj-wind.qbb.moe/maj-winds
+
 This template should help get you started developing with Vue 3 in Vite.
 
 ## Recommended IDE Setup
