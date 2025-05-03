@@ -120,8 +120,8 @@ const updatePlayerName = (index: number, name: string) => {
 <style lang="less" scoped>
 .player-scores {
   position: relative;
-  width: 100%;
-  height: 100%;
+  width: 100dvw;
+  height: 100dvh;
 
   .player {
     position: absolute;
