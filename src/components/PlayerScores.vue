@@ -3,7 +3,9 @@
     <div class="player bottom">
       <div class="player-container">
         <div class="riichi-container">
-          <span class="dealer-mark" :class="{ active: isDealer(0) }">庄</span>
+          <span class="dealer-mark" :class="{ active: isDealer(0) }">
+            {{ getDirection(0) }}
+          </span>
           <button class="riichi-button" :class="{ active: activeButtons[0] }" @click="toggleRiichi(0)">·</button>
           <span class="start-mark" :class="{ active: isStarter(0) }">起</span>
         </div>
@@ -17,7 +19,7 @@
     <div class="player right">
       <div class="player-container">
         <div class="riichi-container">
-          <span class="dealer-mark" :class="{ active: isDealer(1) }">庄</span>
+          <span class="dealer-mark" :class="{ active: isDealer(1) }">{{ getDirection(1) }}</span>
           <button class="riichi-button" :class="{ active: activeButtons[1] }" @click="toggleRiichi(1)">·</button>
           <span class="start-mark" :class="{ active: isStarter(1) }">起</span>
         </div>
@@ -31,7 +33,7 @@
     <div class="player top">
       <div class="player-container">
         <div class="riichi-container">
-          <span class="dealer-mark" :class="{ active: isDealer(2) }">庄</span>
+          <span class="dealer-mark" :class="{ active: isDealer(2) }">{{ getDirection(2) }}</span>
           <button class="riichi-button" :class="{ active: activeButtons[2] }" @click="toggleRiichi(2)">·</button>
           <span class="start-mark" :class="{ active: isStarter(2) }">起</span>
         </div>
@@ -45,7 +47,7 @@
     <div class="player left">
       <div class="player-container">
         <div class="riichi-container">
-          <span class="dealer-mark" :class="{ active: isDealer(3) }">庄</span>
+          <span class="dealer-mark" :class="{ active: isDealer(3) }">{{ getDirection(3) }}</span>
           <button class="riichi-button" :class="{ active: activeButtons[3] }" @click="toggleRiichi(3)">·</button>
           <span class="start-mark" :class="{ active: isStarter(3) }">起</span>
         </div>
@@ -114,6 +116,13 @@ const rollDice = () => {
 // 更新玩家名字
 const updatePlayerName = (index: number, name: string) => {
   playStore.updatePlayerName(index, name)
+}
+
+// 获取方向信息
+const getDirection = (index: number) => {
+  const directions = ['东', '南', '西', '北'];
+  const dealerOffset = (index - dealerIndex.value + 4) % 4; // 计算相对庄家的方位
+  return directions[dealerOffset];
 }
 </script>
 
