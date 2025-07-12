@@ -20,11 +20,10 @@
 
 <script setup lang="ts">
 import { onMounted, computed, ref } from 'vue'
-import { useRouter } from 'vue-router'
 import { usePlayStore } from '@/stores/playStore'
 
 const playStore = usePlayStore()
-const router = useRouter()
+const emit = defineEmits(['back', 'restart'])
 
 // 计算玩家排名
 const rankedPlayers = computed(() => {
@@ -80,12 +79,12 @@ onMounted(() => {
 
 // 返回主页面
 const goBack = () => {
-  router.push('/maj-winds')
+  emit('back')
 }
 
 // 再开游戏
 const restartGame = () => {
-  router.push('/maj-winds/restart')
+  emit('restart')
 }
 </script>
 
@@ -97,15 +96,17 @@ const restartGame = () => {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgb(180, 207, 207);
   display: flex;
   justify-content: center;
   align-items: center;
+  backdrop-filter: blur(8px);
+  background: rgba(220, 241, 241, 0.1);
 }
 
 .panel {
-  width: 80%;
-  height: 80%;
+  width: 80vw;
+  max-height: 90vh;
+  min-width: 320px;
   background-color: #dcf1f1;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);

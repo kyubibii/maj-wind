@@ -3,7 +3,7 @@
     <div class="player-scores-wrapper">
       <PlayerScores />
     </div>
-    <div class="center-panel-wrapper">
+    <div>
       <CenterPanel />
     </div>
   </div>
@@ -21,19 +21,6 @@ import CenterPanel from '@/components/CenterPanel.vue'
   width: 100vw;
   height: 100vh;
   background-color: rgb(180, 207, 207);
-}
-
-.center-panel-wrapper {
-  width: 50vmin;
-  height: 50vmin;
-  position: absolute;
-  /* 让 CenterPanel 上浮 */
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 10;
-  /* 上浮一层 */
-  overflow: hidden;
 }
 
 .player-scores-wrapper {

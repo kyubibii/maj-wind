@@ -33,11 +33,10 @@
 
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-import { useRouter } from 'vue-router'
 import { usePlayStore } from '@/stores/playStore'
 import { processEndByDraw } from '@/utils/endByDrawLogic' // 引入结算逻辑
 
-const router = useRouter()
+const emit = defineEmits(['back'])
 const playStore = usePlayStore()
 
 // 途中流局绑定
@@ -51,7 +50,7 @@ const nagashiMangan = ref(players.value.map(() => false))
 
 // 返回按钮逻辑
 const goBack = () => {
-  router.push('/maj-winds') // 返回主页面
+  emit('back')
 }
 
 // 结算按钮逻辑
@@ -73,7 +72,7 @@ const handleEndByDraw = () => {
   processEndByDraw(data)
   playStore.resetDice() // 重置骰子
   // 返回主页面
-  router.push('/maj-winds')
+  goBack()
 }
 
 // 切换途中流局状态
@@ -99,15 +98,18 @@ const toggleNagashiMangan = (index: number) => {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgb(180, 207, 207);
+
   display: flex;
   justify-content: center;
   align-items: center;
+  backdrop-filter: blur(8px);
+  background: rgba(220, 241, 241, 0.1);
 }
 
 .panel {
-  width: 80%;
-  height: 80%;
+  max-width: 90vw;
+  max-height: 90vh;
+  min-width: 320px;
   background-color: #dcf1f1;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -159,7 +161,6 @@ const toggleNagashiMangan = (index: number) => {
 }
 
 .player-info-container {
-  width: 80%;
   background-color: #f5f5f5;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -177,7 +178,9 @@ const toggleNagashiMangan = (index: number) => {
   justify-content: space-between;
   align-items: center;
   gap: 1em;
-  /* 均匀分布的间距 */
+  writing-mode: horizontal-tb;
+  text-orientation: mixed;
+  white-space: nowrap;
 }
 
 .player-name {

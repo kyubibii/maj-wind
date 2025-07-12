@@ -55,10 +55,9 @@
 
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-import { useRouter } from 'vue-router'
 import { usePlayStore } from '@/stores/playStore'
 
-const router = useRouter()
+const emit = defineEmits(['back'])
 const playStore = usePlayStore()
 
 // 场风、局数、本场绑定
@@ -87,7 +86,7 @@ const toggleRiichi = (index: number) => {
 
 // 返回按钮逻辑
 const goBack = () => {
-  router.push('/maj-winds') // 返回主页面
+  emit('back')
 }
 
 // 保存按钮逻辑
@@ -107,8 +106,8 @@ const saveAndGoBack = () => {
     playStore.players[index].isRiichi = isRiichi // 直接更新 isRiichi 值
   })
 
-  alert('信息已保存！')
-  router.push('/maj-winds') // 返回主页面
+  alert('对局信息已更新！')
+  goBack()
 }
 </script>
 
@@ -119,16 +118,15 @@ const saveAndGoBack = () => {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgb(180, 207, 207);
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: clamp(10px, 2.5vmin, 100px);
+  backdrop-filter: blur(8px);
+  background: rgba(220, 241, 241, 0.1);
 }
 
 .panel {
-  width: 80%;
-  height: 80%;
   background-color: #dcf1f1;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -138,6 +136,9 @@ const saveAndGoBack = () => {
   justify-content: space-between;
   padding: 20px;
   text-align: center;
+  max-width: 90vw;
+  max-height: 90vh;
+  min-width: 320px;
 }
 
 .input-block {

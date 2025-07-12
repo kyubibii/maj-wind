@@ -37,10 +37,9 @@
 
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-import { useRouter } from 'vue-router'
 import { usePlayStore } from '@/stores/playStore'
 
-const router = useRouter()
+const emit = defineEmits(['back'])
 const playStore = usePlayStore()
 
 // 输入绑定
@@ -54,7 +53,7 @@ const players = computed(() => playStore.players)
 
 // 返回按钮逻辑
 const goBack = () => {
-  router.push('/maj-winds') // 返回主界面
+  emit('back')
 }
 
 // 开始按钮逻辑
@@ -63,7 +62,7 @@ const startGame = () => {
   playStore.resetGame(originalPoint.value, starter.value, returnPoint.value, placementBonus.value)
 
   alert('いざ勝負！諸君の武運長久を祈る！') // 提示语
-  router.push('/maj-winds') // 返回主界面
+  goBack()
 }
 </script>
 
@@ -74,15 +73,17 @@ const startGame = () => {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgb(180, 207, 207);
   display: flex;
   justify-content: center;
   align-items: center;
+  backdrop-filter: blur(8px);
+  background: rgba(220, 241, 241, 0.1);
 }
 
 .panel {
-  width: 80%;
-  height: 80%;
+  max-width: 90vw;
+  max-height: 90vh;
+  min-width: 320px;
   background-color: #dcf1f1;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -131,8 +132,8 @@ const startGame = () => {
 }
 
 .placement-bonus input {
-  width: 15%;
-  /* 设置固定宽度 */
+  width: 1.5em;
+  /* 设置更小的固定宽度 */
   padding: 8px;
   font-size: 1.4em;
   border: 1px solid #ccc;

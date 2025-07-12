@@ -1,36 +1,50 @@
 <template>
-  <div class="CenterPanel">
-    <div class="dice-display">
-      <DiceDisplay />
-    </div>
-    <div class="game-stage">
-      <!-- 绑定场风和局数 -->
-      <div class="round-display">{{ round }}{{ ju }}局</div>
-      <div class="more-display">
-        <!-- 绑定本场数 -->
-        <span>{{ benchang }}本场</span>
-        <!-- 绑定场供数量 -->
-        <span>场供：{{ changgong }}</span>
+  <template v-if="menuPage === 0">
+    <div class="center-panel-wrapper">
+      <div class="CenterPanel">
+        <div class="dice-display">
+          <DiceDisplay />
+        </div>
+        <div class="game-stage">
+          <!-- 绑定场风和局数 -->
+          <div class="round-display">{{ round }}{{ ju }}局</div>
+          <div class="more-display">
+            <!-- 绑定本场数 -->
+            <span>{{ benchang }}本场</span>
+            <!-- 绑定场供数量 -->
+            <span>场供：{{ changgong }}</span>
+          </div>
+        </div>
+        <div class="main-button">
+          <!-- 五个按钮 -->
+          <button class="action-button" @click="clickMainButton(1)">和了</button>
+          <button class="action-button" @click="clickMainButton(2)">流局</button>
+          <button class="action-button" @click="clickMainButton(3)">终了</button>
+          <button class="action-button" @click="clickMainButton(4)">再开</button>
+          <button class="action-button" @click="clickMainButton(5)">修正</button>
+        </div>
       </div>
     </div>
-    <div class="main-button">
-      <!-- 四个按钮 -->
-      <button class="action-button" @click="navigateTo('/maj-winds/winning')">和了</button>
-      <button class="action-button" @click="navigateTo('/maj-winds/draw')">流局</button>
-      <button class="action-button" @click="navigateTo('/maj-winds/ending')">终了</button>
-      <button class="action-button" @click="navigateTo('/maj-winds/restart')">再开</button>
-      <button class="action-button" @click="navigateTo('/maj-winds/correction')">修正</button>
-    </div>
-  </div>
+  </template>
+  <CorrectionOfInfo class="button-page" v-if="menuPage === 5" @back="handleBack" />
+  <EndByDraw class="button-page" v-if="menuPage === 2" @back="handleBack" />
+  <EndOfAll class="button-page" v-if="menuPage === 3" @back="handleBack" @restart="handleRestart" />
+  <NewGame class="button-page" v-if="menuPage === 4" @back="handleBack" />
+  <RonnAndTsumo class="button-page" v-if="menuPage === 1" @back="handleBack" />
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
-import { useRouter } from 'vue-router'
+import { ref, computed } from 'vue'
 import { usePlayStore } from '@/stores/playStore'
 import DiceDisplay from './DiceDisplay.vue'
+import CorrectionOfInfo from './mainButtons/CorrectionOfInfo.vue'
+import EndByDraw from './mainButtons/EndByDraw.vue'
+import EndOfAll from './mainButtons/EndOfAll.vue'
+import NewGame from './mainButtons/NewGame.vue'
+import RonnAndTsumo from './mainButtons/RonnAndTsumo.vue'
 
-const router = useRouter()
+const menuPage = ref(0)
+
 const playStore = usePlayStore()
 
 const round = computed(() => {
@@ -50,13 +64,35 @@ const benchang = computed(() => {
 
 const changgong = computed(() => playStore.gameInfo.changgong)
 
-// 跳转到指定页面
-const navigateTo = (path: string) => {
-  router.push(path)
+const clickMainButton = (index: number) => {
+  menuPage.value = index
+}
+const handleRestart = () => {
+  menuPage.value = 4
+}
+const handleBack = () => {
+  menuPage.value = 0
 }
 </script>
 
 <style lang="less" scoped>
+.button-page {
+  z-index: 10;
+}
+
+.center-panel-wrapper {
+  width: 50vmin;
+  height: 50vmin;
+  position: absolute;
+  /* 让 CenterPanel 上浮 */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  /* 上浮一层 */
+  overflow: hidden;
+}
+
 .CenterPanel {
   position: absolute;
   /* 使其可以相对于父容器定位 */

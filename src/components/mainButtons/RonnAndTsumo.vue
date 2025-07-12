@@ -85,13 +85,12 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
-import { useRouter } from 'vue-router'
 import { usePlayStore } from '@/stores/playStore'
 import { progressTsumo, tsumoRewardString } from '@/utils/tsumoLogic'
 import { proceedToNextRound } from '@/utils/nextRoundLogic'
 import { ronnPoint } from '@/utils/ronnLogic'
 
-const router = useRouter()
+const emit = defineEmits(['back'])
 const playStore = usePlayStore() // 引入游戏状态管理
 const players = computed(() => playStore.players) // 获取玩家列表
 
@@ -404,7 +403,7 @@ onMounted(() => {
 })
 
 const goBack = () => {
-  router.push('/maj-winds') // 返回主页面
+  emit('back')
 }
 const handleRAT = () => {
   console.log('处理 Ronn 和 Tsumo')
@@ -445,7 +444,7 @@ const handleRAT = () => {
       playStore.updateBenchang(0)
     }
   }
-  router.push('/maj-winds') // 返回主页面
+  goBack()
 }
 </script>
 
@@ -456,15 +455,17 @@ const handleRAT = () => {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgb(180, 207, 207);
   display: flex;
   justify-content: center;
   align-items: center;
+  backdrop-filter: blur(8px);
+  background: rgba(220, 241, 241, 0.1);
 }
 
 .panel {
-  width: 80%;
-  height: 80%;
+  max-width: 90vw;
+  max-height: 90vh;
+  min-width: 320px;
   background-color: #dcf1f1;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
